@@ -6,7 +6,7 @@ import styles from './index.scss'
 
 class Navbar extends Component {
 	
-	constructor ( props ) {
+	constructor ( props, context ) {
 
 		super ( props )
 		
@@ -21,6 +21,8 @@ class Navbar extends Component {
             agent: '',
             cont: false
 		}
+
+		context.router
 	}
 
 	close() {
@@ -291,6 +293,10 @@ class Navbar extends Component {
             </div>
         )
     }
+}
+
+Navbar.contextTypes = {
+    router: PropTypes.func
 }
 
 export default Navbar
