@@ -1,3 +1,5 @@
-.header {
-	background: green;
-}
+// Include bourbon
+@import '../../scss/bourbon';
+@import '../../scss/components/variables';
+@import '../../scss/components/base';
+@import '../../scss/components/index';

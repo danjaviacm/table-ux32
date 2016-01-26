@@ -127,7 +127,7 @@ class Navbar extends Component {
     render () {
         return (
             <div>
-                <Modal bsClass="modal" bsSize="large" show={this.state.showModal} onHide={this.close}>
+                <Modal bsClass="modal" bsSize="small" show={this.state.showModal} onHide={this.close}>
                     <Modal.Body>
                         <a className="close-ud" onClick={this.close}>×</a>
 
