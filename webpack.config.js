@@ -28,8 +28,21 @@ module.exports = {
 				}
 			},
 
-			// FONTS
+			// BOOTSTRAP && OUR FONTS
 			{ test: /\.(ttf|eot|svg|woff|woff2?)(\?[a-z0-9]+)?$/, loader : 'file-loader' },
+
+			{ test: /\.eot(\?-[a-z0-9]+)?$/, loader: "file" }, 
+
+			// FONT AWESOME FONTS
+			{ test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" }, 
+
+			{ test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" }, 
+
+			{ test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream" }, 
+
+			{ test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file" }, 
+
+			{ test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml" },
 
 			// IMAGES
 			{ test: /\.(png|jpg)$/, loader: 'url?limit=25000' },
