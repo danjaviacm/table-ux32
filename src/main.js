@@ -15,6 +15,10 @@ import Navbar from './components/navbar'
 import store from 'store2'
 import styles from './styles/main.less'
 
+import Woopra from 'woopra'
+
+let woopra = new Woopra( 'cmtest.com', {} );
+
 class QuoteTable extends Component {
 
    	constructor ( props, context ) {
@@ -87,7 +91,7 @@ class QuoteTable extends Component {
             localStorage.setItem('showModal', 'true');
             this.setState({showModal: true});
         }
-        console.log( code[0] )
+
         Ux3Services.getAllPolicies(code[0])
             .then((data) => {
                 let opportunity_id = '';
@@ -136,6 +140,19 @@ class QuoteTable extends Component {
     }
 
     componentDidMount() {
+        
+        let code1 = window.location.href
+
+		let code = code1.match(/[\w]{8}-[\w]{4}-[\w]{4}-[\w]{4}-[\w]{12}/)
+
+        woopra.identify( code[0], {
+		    uuid: code[0],
+		    email: 'test@mail.com'
+		}).push()
+
+		woopra.track( 'Opportunity capture', {
+		    eventProperty: 'rarezas mago de oz'
+		});
         
         let opp_id = ""
 

@@ -52,10 +52,10 @@
     "react": "^0.13.3",
     "react-bootstrap": "^0.24.5",
     "react-dom": "^0.14.6",
-    "react-native-woopra": "^1.0.2",
-    "react-redux": "^4.0.6",
     "react-input-completion": "0.0.5",
     "react-mixin": "^1.7.0",
+    "react-native-woopra": "^1.0.2",
+    "react-redux": "^4.0.6",
     "react-router": "^1.0.0-rc1",
     "react-validation-mixin": "^4.2.0",
     "redux": "^3.0.6",
@@ -63,7 +63,8 @@
     "reflux": "^0.2.11",
     "reqwest": "^2.0.2",
     "store2": "^2.3.2",
-    "xhr2": "^0.1.3",
-    "webpack-dev-server": "^1.14.1"
+    "webpack-dev-server": "^1.14.1",
+    "woopra": "^0.2.0",
+    "xhr2": "^0.1.3"
   }
 }
