@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes, Component } from 'react'
 /*
  1) Llantas estalladas
  2) vidrios estallados
@@ -9,9 +9,11 @@ import React from 'react'
  7) Pequeños accesorios
  8) Servicio Exequial
 * */
-class SlideDown extends React.Component {
+class SlideDown extends Component {
     render() {
+        
         const img = 'https://segdig1.s3.amazonaws.com'
+
         return (
             <tr className="slide-down">
                 <td colSpan="10">

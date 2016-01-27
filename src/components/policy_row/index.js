@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes, Component } from 'react'
 import Router from 'react-router'
 import $ from 'jquery'
 import Ux3Func from '../../services/Ux3Func'
@@ -6,19 +6,20 @@ import Ux3Services from '../../services/Ux3Services'
 import {IMG} from '../../constants/AppConstants'
 import numeral from 'numeral'
 
-let PolicyRow = React.createClass({
-    mixins: [Router.Navigation],
+class PolicyRow extends Component {
 
-    contextTypes: {
-        router: React.PropTypes.func
-    },
+    // mixins: [Router.Navigation]
 
-    getInitialState() {
-        return {
+    constructor ( props, context ) {
+        super ( props )
+
+        this.state = {
             monthly_price: '',
             uuid: ''
         }
-    },
+
+        context.router
+    }
 
     componentWillMount() {
         let code1 = window.location.href
@@ -26,16 +27,16 @@ let PolicyRow = React.createClass({
         this.setState({
             uuid: code[0]
         })
-    },
+    }
 
-    continue(isc){
-        Ux3Func.saveValue('selected_insurance_company_lite', isc)
-        this.transitionTo('vehicle_zero_km')
-    },
+    // continue(isc){
+    //     Ux3Func.saveValue('selected_insurance_company_lite', isc)
+    //     this.transitionTo('vehicle_zero_km')
+    // }
 
     slideDown(e) {
         $(e.target).parents('tr').next().toggle('easeInOut')
-    },
+    }
 
     changePrice(uuid, code, total) {
 
@@ -47,7 +48,7 @@ let PolicyRow = React.createClass({
             .catch((error) => {
                 console.log(error)
             })
-    },
+    }
 
     render() {
         let result = []
@@ -193,6 +194,10 @@ let PolicyRow = React.createClass({
             </tr>
         )
     }
-})
+}
+
+PolicyRow.contextTypes = {
+    router: React.PropTypes.func.isRequired
+};
 
 export default PolicyRow

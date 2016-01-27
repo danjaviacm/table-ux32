@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes, Component } from 'react'
 import $ from 'jquery'
 import { OverlayTrigger, Tooltip } from 'react-bootstrap'
 import PolicyRow from '../policy_row'
@@ -19,8 +19,20 @@ const tooltip = {
     dt: <Tooltip>Revisa todas las coberturas que tiene la  póliza que elijas, además de sus términos y condiciones.</Tooltip>,
 }
 
-let PolicyList = React.createClass({
+class PolicyList extends Component {
+
+    constructor ( props, context ) {
+
+        super ( props )
+
+        this.state = {
+            sortKeyParam: 'insurance_company_code',
+            sortAscParam: true
+        }
+    }
+
     componentDidMount() {
+
         window.addEventListener('scroll', this.handleScroll)
         let $header = $("#table-ux > thead").clone()
         let $tr = $header.find('tr')[0]
@@ -35,18 +47,12 @@ let PolicyList = React.createClass({
             }
             $('#header-fixed').append($header)
         }, 3000)
-    },
-    getInitialState(){
-        return {
-            sortKeyParam: 'insurance_company_code',
-            sortAscParam: true
-        }
-    },
+    }
 
 
     componentWillUnmount() {
         window.removeEventListener('scroll', this.handleScroll)
-    },
+    }
 
     handleScroll(event) {
         let scrollTop = event.srcElement.body.scrollTop
@@ -57,7 +63,7 @@ let PolicyList = React.createClass({
         } else {
             $('#header-fixed').hide()
         }
-    },
+    }
 
 
     render() {
@@ -217,6 +223,6 @@ let PolicyList = React.createClass({
             </div>
         )
     }
-})
+}
 
 export default PolicyList
