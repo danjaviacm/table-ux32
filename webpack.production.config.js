@@ -6,7 +6,7 @@ const PATHS = {
 	app: path.resolve(__dirname, 'src/main.js' ),
 	build: path.resolve(__dirname, 'dist' ),
 	main: path.resolve(__dirname, 'build/index.html' ),
-	index: path.resolve(__dirname, 'dist/index.html' ),
+	index: path.resolve(__dirname, 'index.html' ),
 	componentsPath: path.resolve(__dirname, 'src/components' )
 };
 
