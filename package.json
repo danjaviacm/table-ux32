@@ -54,7 +54,6 @@
     "react-dom": "^0.14.6",
     "react-input-completion": "0.0.5",
     "react-mixin": "^1.7.0",
-    "react-native-woopra": "^1.0.2",
     "react-redux": "^4.0.6",
     "react-router": "^1.0.0-rc1",
     "react-validation-mixin": "^4.2.0",
