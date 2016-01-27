@@ -13,8 +13,7 @@ import { Modal, Button, Carousel, CarouselItem } from 'react-bootstrap'
 import aseguradoras from './services/Aseguradoras'
 import Navbar from './components/navbar'
 import store from 'store2'
-// import styles from './components/index.less'
-require("./components/index.less");
+import styles from './styles/main.less'
 
 let QuoteTable = React.createClass({
     contextTypes: {

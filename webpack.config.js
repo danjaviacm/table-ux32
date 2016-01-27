@@ -28,6 +28,12 @@ module.exports = {
 				}
 			},
 
+			// FONTS
+			{ test: /\.(ttf|eot|svg|woff|woff2?)(\?[a-z0-9]+)?$/, loader : 'file-loader' },
+
+			// IMAGES
+			{ test: /\.(png|jpg)$/, loader: 'url?limit=25000' },
+
 			// LESS
             { test: /\.less$/, loader: "style!css!less" },
 
@@ -37,10 +43,7 @@ module.exports = {
 	},
 
 	plugins: [
-		new OpenBrowserPlugin({ url: 'http://localhost:5000' }),
-		new webpack.ResolverPlugin([
-            new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"])
-        ])
+		new OpenBrowserPlugin({ url: 'http://localhost:5000' })
 	]
 	
 };
