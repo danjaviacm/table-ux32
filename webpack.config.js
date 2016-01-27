@@ -1,6 +1,7 @@
 const path = require( 'path' );
 const node_modules = path.resolve( __dirname, 'node_modules' );
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
+const webpack = require( "webpack" );
 
 const PATHS = {
 	app: path.resolve(__dirname, 'src/main.js' ),
@@ -28,21 +29,18 @@ module.exports = {
 			},
 
 			// LESS
-			{
-				test: /\.less$/,
-				loader: 'style!css!less'
-			},
+            { test: /\.less$/, loader: "style!css!less" },
 
 			// SASS
-			{
-				test: /\.scss$/,
-				loader: 'style!css!sass'
-			}
+			{ test: /\.scss$/, loader: 'style!css!sass'	}
 		]
 	},
 
 	plugins: [
-		new OpenBrowserPlugin({ url: 'http://localhost:3000' })
+		new OpenBrowserPlugin({ url: 'http://localhost:5000' }),
+		new webpack.ResolverPlugin([
+            new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"])
+        ])
 	]
 	
 };

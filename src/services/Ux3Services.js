@@ -1,5 +1,5 @@
 import request from 'reqwest'
-import {BASE_URL} from '../constants/AppConstants'
+import { BASE_URL } from '../constants/AppConstants'
 
 const url = BASE_URL
 

@@ -2,7 +2,6 @@ import React, { PropTypes, Component } from 'react'
 import $ from 'jquery'
 import { Modal, Button } from 'react-bootstrap'
 import Ux3Services from '../../services/Ux3Services'
-import styles from './index.scss'
 
 class Navbar extends Component {
 	
@@ -296,7 +295,7 @@ class Navbar extends Component {
 }
 
 Navbar.contextTypes = {
-    router: PropTypes.func
-}
+    router: React.PropTypes.func.isRequired
+};
 
 export default Navbar
