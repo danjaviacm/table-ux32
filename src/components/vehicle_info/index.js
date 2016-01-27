@@ -1,16 +1,20 @@
-import React from 'react'
+import React, { PropTypes, Component } from 'react'
 import CallmeNow from '../../modals/callme_now'
 
-let VehicleInfo = React.createClass({
-    getInitialState() {
-        return {
+class VehicleInfo extends Component {
+
+    constructor ( props, context ) {
+        
+        super ( props )
+
+        this.state = {
             modal: false
         }
-    },
+    }
 
     showModal() {
         this.setState({modal: true})
-    },
+    }
 
     render() {
         return (
@@ -78,6 +82,6 @@ let VehicleInfo = React.createClass({
             </section>
         )
     }
-})
+}
 
 export default VehicleInfo
