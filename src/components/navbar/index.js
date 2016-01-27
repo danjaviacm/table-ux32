@@ -21,7 +21,7 @@ class Navbar extends Component {
             cont: false
 		}
 
-		// context.router
+		context.router
 	}
 
 	close() {
@@ -294,8 +294,8 @@ class Navbar extends Component {
     }
 }
 
-// Navbar.contextTypes = {
-//     router: React.PropTypes.func.isRequired
-// }
+Navbar.contextTypes = {
+    router: React.PropTypes.func.isRequired
+}
 
 export default Navbar

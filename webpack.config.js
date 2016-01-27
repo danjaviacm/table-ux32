@@ -31,6 +31,8 @@ module.exports = {
 			// BOOTSTRAP && OUR FONTS
 			{ test: /\.(ttf|eot|svg|woff|woff2?)(\?[a-z0-9]+)?$/, loader : 'file-loader' },
 
+			{ test: /\.(ttf|eot|svg|woff|woff2)?$/, loader : 'file-loader' },
+
 			{ test: /\.eot(\?-[a-z0-9]+)?$/, loader: "file" }, 
 
 			// FONT AWESOME FONTS

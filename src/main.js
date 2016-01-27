@@ -15,13 +15,13 @@ import Navbar from './components/navbar'
 import store from 'store2'
 import styles from './styles/main.less'
 
-class QuoteTable extends Component {
+let QuoteTable = React.createClass({
+    contextTypes: {
+        router: React.PropTypes.func
+    },
 
-   	constructor ( props, context ) {
-   		
-   		super ( props )
-
-   		this.state = {
+    getInitialState(){
+        return {
             policies: [],
             asc: true,
             showModal: true,
@@ -30,14 +30,12 @@ class QuoteTable extends Component {
             opportunity_id: '',
             opp_id: ''
         }
-
-        // context.router
-   	}
+    },
 
     funct(data) {
         this.state.policies = data
         this.setState({policies: data})
-    }
+    },
 
     sortPusher(prop){
         let asc = true;
@@ -52,7 +50,7 @@ class QuoteTable extends Component {
             policies: list_sort,
             asc: asc
         });
-    }
+    },
 
     sortList(prop){
         let asc = !this.state.asc;
@@ -67,7 +65,7 @@ class QuoteTable extends Component {
             policies: list_sort,
             asc: asc
         });
-    }
+    },
 
     componentWillMount() {
         let code1 = window.location.href
@@ -110,7 +108,7 @@ class QuoteTable extends Component {
             }).catch((error) => {
                 console.log(error)
             })
-    }
+    },
 
     dropKeyByDefault(key, data) {
         let keydrop = false;
@@ -132,7 +130,7 @@ class QuoteTable extends Component {
         return data.filter(function (val) {
             return val
         });
-    }
+    },
 
     componentDidMount() {
         let opp_id = ""
@@ -173,11 +171,11 @@ class QuoteTable extends Component {
                 //console.log(pol)
             }.bind(this))
         }
-    }
+    },
 
     close() {
         this.setState({showModal: false})
-    }
+    },
 
     render() {
         return (
@@ -253,11 +251,8 @@ class QuoteTable extends Component {
             </div>
         )
     }
-}
+})
 
-// QuoteTable.contextTypes = {
-//     router: React.PropTypes.func.isRequired
-// }
 
 let routes = (
     <Route>
