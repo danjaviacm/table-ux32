@@ -15,13 +15,13 @@ import Navbar from './components/navbar'
 import store from 'store2'
 import styles from './styles/main.less'
 
-let QuoteTable = React.createClass({
-    contextTypes: {
-        router: React.PropTypes.func
-    },
+class QuoteTable extends Component {
 
-    getInitialState(){
-        return {
+   	constructor ( props, context ) {
+
+   		super ( props )
+
+   		this.state = {
             policies: [],
             asc: true,
             showModal: true,
@@ -30,12 +30,14 @@ let QuoteTable = React.createClass({
             opportunity_id: '',
             opp_id: ''
         }
-    },
+
+        context.router
+   	}
 
     funct(data) {
         this.state.policies = data
         this.setState({policies: data})
-    },
+    }
 
     sortPusher(prop){
         let asc = true;
@@ -50,9 +52,10 @@ let QuoteTable = React.createClass({
             policies: list_sort,
             asc: asc
         });
-    },
+    }
 
     sortList(prop){
+    	console.log(this.state)
         let asc = !this.state.asc;
         let list_sort = this.state.policies.sort(function (a, b) {
             if (asc){
@@ -65,7 +68,7 @@ let QuoteTable = React.createClass({
             policies: list_sort,
             asc: asc
         });
-    },
+    }
 
     componentWillMount() {
         let code1 = window.location.href
@@ -108,7 +111,7 @@ let QuoteTable = React.createClass({
             }).catch((error) => {
                 console.log(error)
             })
-    },
+    }
 
     dropKeyByDefault(key, data) {
         let keydrop = false;
@@ -130,17 +133,17 @@ let QuoteTable = React.createClass({
         return data.filter(function (val) {
             return val
         });
-    },
+    }
 
     componentDidMount() {
+        
         let opp_id = ""
+
         try{
             opp_id = JSON.parse(store.get('opp_id'));
         }catch(e){
             opp_id = ''
         }
-
-
 
         $('.loading-bar').animate({
             width: '100%'
@@ -171,11 +174,11 @@ let QuoteTable = React.createClass({
                 //console.log(pol)
             }.bind(this))
         }
-    },
+    }
 
     close() {
         this.setState({showModal: false})
-    },
+    }
 
     render() {
         return (
@@ -231,7 +234,7 @@ let QuoteTable = React.createClass({
 
                 <div className="quote-table-cars">
                     <div className="loading-bar"></div>
-                    <PolicyList list={this.state.policies} sortList={this.sortList}/>
+                    <PolicyList list={this.state.policies} sortList={this.sortList.bind(this)}/>
                     <div className="terms">
                         <span>Oportunidad: {this.state.opp_id}</span>
                         <br/>
@@ -251,8 +254,11 @@ let QuoteTable = React.createClass({
             </div>
         )
     }
-})
+}
 
+QuoteTable.contextTypes = {
+    router: React.PropTypes.func.isRequired
+}
 
 let routes = (
     <Route>
