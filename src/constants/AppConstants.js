@@ -7,7 +7,6 @@ if( window.location.host == 'seguros.comparamejor.com' ) {
     ENV = 'prd';
     BASE_URL = 'https://seguros.comparamejor.com/';
     KEY_PUSHER = '3173debe12cb90da0c9f';
-    IMG = ''
 }
 
 //BASE_URL = 'https://seguros.comparamejor.com/';

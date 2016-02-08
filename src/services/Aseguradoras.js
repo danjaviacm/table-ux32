@@ -26,7 +26,7 @@ let aseguradoras =  [
     },
     {
         insurance_company_code: "MUNDIAL",
-        logo: "https://segdig1.s3.amazonaws.com/media/uploads/aseguradoras/mundial_logo-01.png",
+        logo: "/media/uploads/aseguradoras/mundial_logo-01.png",
         default: true,
         error: true
     },
