@@ -76,7 +76,7 @@ class QuoteTable extends Component {
 
     componentWillMount() {
         let code1 = window.location.href
-        console.log(code1);
+        // console.log(code1);
         let code = code1.match(/[\w]{8}-[\w]{4}-[\w]{4}-[\w]{4}-[\w]{12}/)
         let local_polilicies = aseguradoras;
 
@@ -94,6 +94,7 @@ class QuoteTable extends Component {
 
         Ux3Services.getAllPolicies(code[0])
             .then((data) => {
+                // console.log( data )
                 let opportunity_id = '';
                 data.map((obj) => {
                     if(obj.error){
@@ -108,13 +109,49 @@ class QuoteTable extends Component {
 
                 this.setState({
                     policies: local_polilicies,
-                    opp_id: opportunity_id,
-                    opportunity_id: opportunity_id
+                    opp_id: opportunity_id
                 })
 
+                if ( ! localStorage.opp_id ) {
+                    if ( opportunity_id != null ) {
+                        let pusher = new Pusher(KEY_PUSHER)
+                        let channel = pusher.subscribe('car-comparison-table-' + opportunity_id)
+                        channel.bind('quoted_policy', function (data) {
+                            // console.log( data )
+                            let local_polilicies = this.state.policies;
+                            local_polilicies.push(data);
+                            local_polilicies = this.dropKeyByDefault(data, local_polilicies)
+                            //local_polilicies
+                            this.funct(local_polilicies)
+                            this.sortPusher('price_total_without_formatting')
+                        }.bind(this))
+                    }
+                }
+
             }).catch((error) => {
-                console.log(error)
+                // console.log(error)
             })
+
+        if ( localStorage.opp_id ) {
+
+            let opp_id = JSON.parse( store.get( 'opp_id' ) )
+
+            if ( localStorage.opp_id != null ) {
+                let pusher = new Pusher(KEY_PUSHER)
+                let channel = pusher.subscribe('car-comparison-table-' + opp_id.opp_id)
+                channel.bind('quoted_policy', function (data) {
+                    // console.log( data )
+                    let local_polilicies = this.state.policies;
+                    local_polilicies.push(data);
+                    local_polilicies = this.dropKeyByDefault(data, local_polilicies)
+                    //local_polilicies
+                    this.funct(local_polilicies)
+                    this.sortPusher('price_total_without_formatting')
+                    // console.log(pol)
+                }.bind(this))
+            }
+        }
+
     }
 
     dropKeyByDefault(key, data) {
@@ -154,13 +191,7 @@ class QuoteTable extends Component {
 		    eventProperty: 'rarezas mago de oz'
 		});
         
-        let opp_id = ""
-
-        try{
-            opp_id = JSON.parse(store.get('opp_id'));
-        }catch(e){
-            opp_id = ''
-        }
+        let opp_id = this.state.opp_id
 
         $('.loading-bar').animate({
             width: '100%'
@@ -171,26 +202,10 @@ class QuoteTable extends Component {
         setTimeout(function () {
             localStorage.setItem('showModal', 'false');
             this.setState({
-                showModal: false,
-                opp_id: opp_id
+                showModal: false
             });
-        }.bind(this), 10000)
+        }.bind(this), 15000)
 
-
-        // Pusher Channel by Binding
-        if(opp_id != null) {
-            let pusher = new Pusher(KEY_PUSHER)
-            let channel = pusher.subscribe('car-comparison-table-' + opp_id.opp_id)
-            channel.bind('quoted_policy', function (data) {
-                let local_polilicies = this.state.policies;
-                local_polilicies.push(data);
-                local_polilicies = this.dropKeyByDefault(data, local_polilicies)
-                //local_polilicies
-                this.funct(local_polilicies)
-                this.sortPusher('price_total_without_formatting')
-                //console.log(pol)
-            }.bind(this))
-        }
     }
 
     close() {

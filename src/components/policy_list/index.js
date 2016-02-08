@@ -73,7 +73,7 @@ class PolicyList extends Component {
 
         {
             list.map((policy) => {
-                if (policy.error == false) {
+                if (policy.error == false && policy.price_total_without_formatting > 0 ) {
                     tr.push(
                         <PolicyRow key={ policy.policy_id }
                                    url={ policy.url }
