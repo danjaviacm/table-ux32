@@ -1,14 +1,16 @@
-const path = require( 'path' );
-const node_modules = path.resolve( __dirname, 'node_modules' );
-const OpenBrowserPlugin = require('open-browser-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const webpack = require( "webpack" );
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const path = require( 'path' )
+const node_modules = path.resolve( __dirname, 'node_modules' )
+const OpenBrowserPlugin = require('open-browser-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const webpack = require( "webpack" )
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const PATHS = {
 	app: path.resolve(__dirname, 'src/main.js' ),
 	build: path.resolve(__dirname, 'build' ),
-	fonts: path.resolve(__dirname, 'src/fonts')
+	fonts: path.resolve(__dirname, 'src/fonts'),
+	indexfile: path.resolve(__dirname, 'index.html' ),
 };
 
 module.exports = {
@@ -17,14 +19,16 @@ module.exports = {
 
 	output: {
 		path: PATHS.build,
-		filename: 'bundle.js'
+		filename: 'bundle-[hash].js'
 	},
+
+	devtool: "eval-source-map",
 
 	// For joi libs
 	node: {
-      net: 'empty',
-      tls: 'empty',
-      dns: 'empty'
+		net: 'empty',
+		tls: 'empty',
+		dns: 'empty'
     },
 
 	module: {
@@ -41,7 +45,7 @@ module.exports = {
 			// BOOTSTRAP && OUR FONTS
 			{ test: /\.(ttf|eot|svg|woff|woff2?)(\?[a-z0-9]+)?$/, loader : 'file-loader?name=[name]-[hash].[ext]' },
 
-			{ test: /\.eot(\?-[a-z0-9]+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream" }, 
+			{ test: /\.eot(\?-[a-z0-9]+)?$/, loader: 'file-loader?fonts/name=[name]-[hash].[ext]' }, 
 
 			// FONT AWESOME FONTS
 			{ test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" }, 
@@ -58,9 +62,9 @@ module.exports = {
 			{ test: /\.(png|jpg)$/, loader: 'url?limit=25000' },
 
 			// LESS
-            // { test: /\.less$/, loader: "style!css!less" },
+            { test: /\.less$/, loader: "style!css!less" },
 
-            { test: /\.less$/, loader: ExtractTextPlugin.extract("css-loader!autoprefixer-loader!less-loader")},
+            // { test: /\.less$/, loader: ExtractTextPlugin.extract("css-loader!autoprefixer-loader!less-loader")},
 
 			// SASS
 			{ test: /\.scss$/, loader: 'style!css!sass'	}
@@ -70,7 +74,7 @@ module.exports = {
 	plugins: [
 
         new CopyWebpackPlugin([
-        	
+
             { from: PATHS.fonts, to: 'fonts' }
 
         ], {
@@ -79,9 +83,23 @@ module.exports = {
                 '*.txt'
             ]
         }),
+        
+		new webpack.DefinePlugin({
+		    'process.env.NODE_ENV': '"development"'
+		}),
+
+		new HtmlWebpackPlugin({
+	      	title: 'ComparaMejor.com',
+	      	filename: 'index.html',
+	      	template: 'src/index.html',
+	      	bundle: 'bundle-[hash].js'
+	    }),
 
 		new OpenBrowserPlugin({ url: 'http://localhost:5000' }),
-		new ExtractTextPlugin( "./[name].css" )
+		new webpack.SourceMapDevToolPlugin(
+            'bundle.js.map', null,
+            "[absolute-resource-path]", "[absolute-resource-path]")
+		// new ExtractTextPlugin( "./[name].css" )
 
 	]
 	

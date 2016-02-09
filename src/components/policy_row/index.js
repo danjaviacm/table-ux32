@@ -63,7 +63,7 @@ class PolicyRow extends Component {
             <tr className="policy-row">
                 <td className="logo-insurance">
 
-                    <img src={`${IMG}${this.props.logo}`} width="90px"
+                    <img src={`${this.props.logo}`} width="90px"
                          height="auto"/>
                         <span className="plan-name"
                               style={{maxWidth: '100px', textWrap: 'avoid', display: 'block', margin: '0 auto'}}>
